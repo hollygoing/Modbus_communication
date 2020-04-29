@@ -1,0 +1,5 @@
+在连接串口的过程中
+windows中直接写的是串口COM1这样
+而Linux中写的是/dev/ttyS0
+然后开启串口时，需要权限
+可以用 sudo chmod 777 ttyS0 这样来赋予权限
