@@ -44,18 +44,14 @@ void MainWindow::McModbusRTUMessage(unsigned char mID, int mFunction, QByteArray
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    //
-//    if(mmrtu->LinkUart(ui->lineEdit_3->text())>5){
-//        statusBar()->showMessage("连接成功");
-//    }
-      if(mmrtu->LinkUart("/dev/ttyS0")>5){
-          statusBar()->showMessage("连接成功");
-      }
+
+    if(mmrtu->LinkUart(ui->lineEdit_3->text())>5){
+        statusBar()->showMessage("连接成功");
+    }
 }
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    QTimer * timer = new QTimer(this);
     unsigned short SenDate[120]; //一条最多传递123个数字 即246个字节的数字
     SenDate[0]=5;
     SenDate[1]=6;
@@ -63,45 +59,18 @@ void MainWindow::on_pushButton_5_clicked()
     for(int i = 3; i < 120; i++){
         SenDate[i] = i;
     }
-
-//    connect(timer,SIGNAL(timeout()),mmrtu,SLOT(Request16(unsigned char,unsigned int,int,unsigned short)));
-//    timer->setSingleShot(true);
-//    timer->start(300);
-//    unsigned short SenDate1[120]; //一条最多传递123个数字 即246个字节的数字
-//    SenDate1[0]=1;
-//    SenDate1[1]=2;
-//    SenDate1[2]=3;
-//    for(int i = 3; i < 120; i++){
-//        SenDate1[i] = i;
-//    }
-
-//    if(times_count == 1){
-//        mmrtu->Request16(1,0,120,SenDate);
-//        times_count = 0;
-//    }else if(times_count == 0){
-//        mmrtu->Request16(1,120,120,SenDate);
-//        times_count = 1;
-//    }
     mmrtu->Request16(1,0,120,SenDate);
-//    std::thread* t = new std::thread(mmrtu->Request16,1,0,120,SenDate);
-//    t->join();
-//    delete t;
-//    std::thread first(mmrtu->Request16,1,0,120,SenDate);
-//    usleep(1000 * 1000);
-//    mmrtu->Request16(1,120,120,SenDate);
-//    QTimer::singleShot(100,mmrtu,SLOT(mmrtu->Request16(1,120,120,SenDate)));
+
     QTimer::singleShot(50,mmrtu,[=]{
         mmrtu->Request16(1,120,120,SenDate);
-        qDebug() << "hello world" ;
     });
-//    usleep(20 * 1000);
-//    mmrtu->Request16(1,240,120,SenDate);
-//    mmrtu->Request16(1,360,120,SenDate);
-//    mmrtu->Request16(1,480,120,SenDate);
-//    mmrtu->Request06(1,1,15);
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-
+    QTimer::singleShot(100,mmrtu,[=]{
+        mmrtu->Request16(1,240,120,SenDate);
+    });
+    QTimer::singleShot(150,mmrtu,[=]{
+        mmrtu->Request16(1,360,120,SenDate);
+    });
+    QTimer::singleShot(200,mmrtu,[=]{
+        mmrtu->Request16(1,480,120,SenDate);
+    });
 }

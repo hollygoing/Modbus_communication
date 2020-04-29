@@ -50,20 +50,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>COM1</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>30</y>
-      <width>112</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>没用</string>
+     <string>/dev/ttyS0</string>
     </property>
    </widget>
   </widget>
@@ -73,7 +60,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>29</height>
+     <height>32</height>
     </rect>
    </property>
   </widget>

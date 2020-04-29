@@ -24,9 +24,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
     void McModbusRTUMessage(unsigned char mID,int mFunction,QByteArray Data);
-
     void on_pushButton_5_clicked();
     void on_pushButton_4_clicked();
 

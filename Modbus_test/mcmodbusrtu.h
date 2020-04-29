@@ -72,7 +72,6 @@ signals:
 public slots:
     void Read_Data();//串口数据读取函数
     void Tick_Server();//串口分时接收
-//    void Request16(unsigned char id, unsigned int address, int dLong, unsigned short *data);
 private:
     bool serial_enable; //bool占1位
     QByteArray Read_Temp; //理解为缓冲区
