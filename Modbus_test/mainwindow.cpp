@@ -2,9 +2,9 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <iostream>
-#include <unistd.h>
 #include <QTime>
 #include "mcmodbusrtu.h"
+#include "yaml-cpp/yaml.h"
 
 int times_count = 0;
 MainWindow::MainWindow(QWidget *parent)
@@ -44,7 +44,9 @@ void MainWindow::McModbusRTUMessage(unsigned char mID, int mFunction, QByteArray
 
 void MainWindow::on_pushButton_4_clicked()
 {
-
+    YAML::Node config = YAML::LoadFile("config.yaml"); //记住要更换构建目录
+    std::cout << "Version" << config["System"]["SystemConf"]["Version"].as<std::string>() <<std::endl;
+    std::cout << "Usage" << config["System"]["SystemConf"]["Usage"].as<unsigned short>() <<std::endl;
     if(mmrtu->LinkUart(ui->lineEdit_3->text())>5){
         statusBar()->showMessage("连接成功");
     }
