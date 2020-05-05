@@ -19,11 +19,17 @@ INCLUDEPATH += /usr/local/include
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mcmodbusrtu.cpp
+    mcmodbusrtu.cpp \
+    mylineedit.cpp \
+    s_work.cpp \
+    type_change.cpp \
+    utils.cpp
 
 HEADERS += \
     mainwindow.h \
-    mcmodbusrtu.h
+    mcmodbusrtu.h \
+    mylineedit.h \
+    utils.h
 
 FORMS += \
     mainwindow.ui

@@ -22,7 +22,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+    void s_work();
+    unsigned short * type_change(std::string s);
 private slots:
     void McModbusRTUMessage(unsigned char mID,int mFunction,QByteArray Data);
     void on_pushButton_5_clicked();
@@ -32,4 +33,9 @@ private:
     Ui::MainWindow *ui;
     McModbusRTU *mmrtu;
 };
+
+extern int timeSet;
+extern int time_sp;
+extern unsigned short address;
+
 #endif // MAINWINDOW_H

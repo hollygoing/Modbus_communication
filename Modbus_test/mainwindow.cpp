@@ -1,12 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
 #include <iostream>
-#include <QTime>
 #include "mcmodbusrtu.h"
-#include "yaml-cpp/yaml.h"
 
-int times_count = 0;
+int timeSet = 50;//全局变量的定义
+int time_sp = 50;
+unsigned short address = 0;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -44,35 +44,13 @@ void MainWindow::McModbusRTUMessage(unsigned char mID, int mFunction, QByteArray
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    YAML::Node config = YAML::LoadFile("config.yaml"); //记住要更换构建目录
-    std::cout << "Version" << config["System"]["SystemConf"]["Version"].as<std::string>() <<std::endl;
-    std::cout << "Usage" << config["System"]["SystemConf"]["Usage"].as<unsigned short>() <<std::endl;
     if(mmrtu->LinkUart(ui->lineEdit_3->text())>5){
         statusBar()->showMessage("连接成功");
     }
+
 }
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    unsigned short SenDate[120]; //一条最多传递123个数字 即246个字节的数字
-    SenDate[0]=5;
-    SenDate[1]=6;
-    SenDate[2]=7;
-    for(int i = 3; i < 120; i++){
-        SenDate[i] = i;
-    }
-    mmrtu->Request16(1,0,120,SenDate);
-
-    QTimer::singleShot(50,mmrtu,[=]{
-        mmrtu->Request16(1,120,120,SenDate);
-    });
-    QTimer::singleShot(100,mmrtu,[=]{
-        mmrtu->Request16(1,240,120,SenDate);
-    });
-    QTimer::singleShot(150,mmrtu,[=]{
-        mmrtu->Request16(1,360,120,SenDate);
-    });
-    QTimer::singleShot(200,mmrtu,[=]{
-        mmrtu->Request16(1,480,120,SenDate);
-    });
+    s_work();
 }
